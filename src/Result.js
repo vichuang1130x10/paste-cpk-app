@@ -151,6 +151,7 @@ class App extends Component {
       uslText,
       lslText,
       tableData,
+      options,
     };
   }
 
@@ -173,10 +174,19 @@ class App extends Component {
   };
 
   render() {
-    const { bars, paths, uslLine, lslLine, uslText, lslText, tableData } =
-      this.state;
+    const {
+      bars,
+      paths,
+      uslLine,
+      lslLine,
+      uslText,
+      lslText,
+      tableData,
+      options,
+    } = this.state;
     return bars.length ? (
       <div className="search">
+        <h1>{options}</h1>
         <svg width={width} height={height}>
           {bars.map((d, i) => (
             <rect

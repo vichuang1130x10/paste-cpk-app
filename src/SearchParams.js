@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelect } from "./useSelect";
+import { Container, Row, Col } from "react-bootstrap";
 
 import SelectComponent from "./SelectComponent";
 import Result from "./Result";
@@ -28,32 +29,37 @@ const SearchParams = () => {
 
   return (
     <div className="search-params">
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          requestData();
-        }}
-      >
-        <SelectComponent
-          labelName="CompType"
-          props={compTypeProps}
-          options={COMPTYPES}
-        />
-        {/* <SelectComponent
+      {/* <div className="search-params"> */}
+      <div>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            requestData();
+          }}
+        >
+          <SelectComponent
+            labelName="CompType"
+            props={compTypeProps}
+            options={COMPTYPES}
+          />
+          {/* <SelectComponent
           labelName="Measurement"
           props={measurementPros}
           options={MEASUREMENTS}
         /> */}
-        {/* <SelectComponent
+          {/* <SelectComponent
           labelName="Breed"
           props={breedProps}
           options={breeds}
         /> */}
-        <button>Submit</button>
-      </form>
-      <Result data={pasteData} options={MEASUREMENTS[0]} />
-      <Result data={pasteData} options={MEASUREMENTS[1]} />
-      <Result data={pasteData} options={MEASUREMENTS[2]} />
+          <button>Submit</button>
+        </form>
+      </div>
+      <div>
+        <Result data={pasteData} options={MEASUREMENTS[0]} />
+        <Result data={pasteData} options={MEASUREMENTS[1]} />
+        <Result data={pasteData} options={MEASUREMENTS[2]} />
+      </div>
     </div>
   );
 };

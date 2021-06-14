@@ -13,6 +13,10 @@ body {
   width: 1100px;
   margin: 0 auto;
   overflow: visible;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
 }
 
 .search-params:after {
@@ -276,8 +280,8 @@ header {
     width: 55%;
     padding: 15px;
     border-radius: 9px;
-    float: left;
     margin-bottom: 25px;
+    float: right;
   }
 
   .details {
