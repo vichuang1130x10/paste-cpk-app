@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelect } from "./useSelect";
 import { useBreedList } from "./useBreedList";
 import SelectComponent from "./SelectComponent";
 import Result from "./Result";
 import CAD from "./cad.json";
-const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
 
 const COMPTYPES = Array.from(new Set(CAD.map((obj) => obj.CompType)));
 
@@ -16,10 +15,6 @@ const SearchParams = () => {
   const [breeds] = useBreedList(animalProps.value);
 
   const [pasteData, setPasteData] = useState([]);
-
-  // useEffect(() => {
-  //   requestPets();
-  // }, []); // eslint-disable-line
 
   async function requestData() {
     const res = await fetch(
