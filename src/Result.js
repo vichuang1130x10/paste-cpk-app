@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import * as d3 from "d3";
 import { jStat } from "jstat";
+import CpkTable from "./CpkTable";
 
 const width = 440;
 const height = 340;
@@ -85,8 +86,10 @@ class App extends Component {
     if (!data) return {};
 
     const value = data.map((i) => parseFloat(i["Height(um)"]) || 0.0);
+    const compType = data[0].CompType || "NA";
+    const sampleCount = value.length;
     const cpkdata = calculateData(value);
-
+    const tableData = { ...cpkdata, compType, sampleCount };
     const scaleX = d3
       .scaleLinear()
       .domain([
@@ -147,6 +150,7 @@ class App extends Component {
       lslLine,
       uslText,
       lslText,
+      tableData,
     };
   }
 
@@ -169,7 +173,8 @@ class App extends Component {
   };
 
   render() {
-    const { bars, paths, uslLine, lslLine, uslText, lslText } = this.state;
+    const { bars, paths, uslLine, lslLine, uslText, lslText, tableData } =
+      this.state;
     return bars.length ? (
       <div className="search">
         <svg width={width} height={height}>
@@ -234,6 +239,7 @@ class App extends Component {
             transform={`translate(0, ${height - margin.bottom})`}
           />
         </svg>
+        <CpkTable data={tableData} />
       </div>
     ) : null;
   }
