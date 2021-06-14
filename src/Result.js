@@ -82,11 +82,11 @@ class App extends Component {
   // yAxis = React.createRef();
   static getDerivedStateFromProps(nextProps) {
     /* <Result data={whatever data is}/>*/
-    const { data } = nextProps;
+    const { data, options } = nextProps;
     if (!data) return {};
 
-    const value = data.map((i) => parseFloat(i["Height(um)"]) || 0.0);
-    const compType = data[0].CompType || "NA";
+    const value = data.map((i) => parseFloat(i[options]) || 0.0);
+    const compType = data.length ? data[0].CompType : "NA";
     const sampleCount = value.length;
     const cpkdata = calculateData(value);
     const tableData = { ...cpkdata, compType, sampleCount };

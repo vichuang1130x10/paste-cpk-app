@@ -24,7 +24,7 @@ export default function CpkTable({ data }) {
         </tr>
       </thead>
       <tbody>
-        {data ? (
+        {data.max ? (
           <tr>
             <td>{data.compType}</td>
             <td>{data.sampleCount}</td>
