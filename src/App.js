@@ -4,7 +4,7 @@ import SearchParams from "./SearchParams";
 function App() {
   return (
     <div>
-      <h1>Solder Paste Cpk Analysis</h1>
+      <h1>Solder Paste Printing Cpk Analysis</h1>
       <SearchParams />
     </div>
   );

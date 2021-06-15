@@ -187,7 +187,7 @@ class App extends Component {
     return bars.length ? (
       <div className="search">
         <h1>{options}</h1>
-        <svg width={width} height={height}>
+        <svg width={width} height={height} className="svg-container">
           {bars.map((d, i) => (
             <rect
               key={i}

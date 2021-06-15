@@ -17,14 +17,25 @@ const SearchParams = () => {
   const [pasteData, setPasteData] = useState([]);
 
   async function requestData() {
-    if (!compTypeProps.value) return;
-    const res = await fetch(
-      // `http://pets-v2.dev-apis.com/pets?animal=${animalProps.value}&location=${location}&breed=${breedProps.value}`
-      `http://localhost:5050/api/CompType/${compTypeProps.value}`
-    );
-    const json = await res.json();
-    console.log(json.data);
-    setPasteData(json.data);
+    // if (!compTypeProps.value) return;
+
+    if (location.length === 0) {
+      const res = await fetch(
+        // `http://pets-v2.dev-apis.com/pets?animal=${animalProps.value}&location=${location}&breed=${breedProps.value}`
+        `http://localhost:5050/api/CompType/${compTypeProps.value}`
+      );
+      const json = await res.json();
+      console.log(json.data);
+      setPasteData(json.data);
+    } else {
+      const res = await fetch(
+        // `http://pets-v2.dev-apis.com/pets?animal=${animalProps.value}&location=${location}&breed=${breedProps.value}`
+        `http://localhost:5050/api/CompId/${location}`
+      );
+      const json = await res.json();
+      console.log(json.data);
+      setPasteData(json.data);
+    }
   }
 
   return (
@@ -42,6 +53,15 @@ const SearchParams = () => {
             props={compTypeProps}
             options={COMPTYPES}
           />
+          <label htmlFor="location">
+            Location
+            <input
+              id="location"
+              value={location}
+              placeholder="Location"
+              onChange={(e) => setLocation(e.target.value)}
+            />{" "}
+          </label>
           {/* <SelectComponent
           labelName="Measurement"
           props={measurementPros}
