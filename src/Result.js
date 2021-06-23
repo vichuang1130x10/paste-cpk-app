@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import * as d3 from "d3";
 import { jStat } from "jstat";
 import CpkTable from "./CpkTable";
+import CRITERIA from "./criteriac.json";
 
 const width = 440;
 const height = 340;
@@ -21,14 +22,28 @@ const Random_normal_Dist = (mean, sd) => {
   return data;
 };
 
-const calculateData = (rowData) => {
-  console.log(rowData);
+const calculateData = (rowData, firstComponent) => {
+  console.log(firstComponent);
+  const findCriteria = CRITERIA.filter(
+    (obj) => obj["Component ID"].split("_")[0] === firstComponent
+  )[0];
+  console(findCriteria);
   const [min, max] = d3.extent(rowData);
   const mean = d3.mean(rowData);
   const stdev = d3.deviation(rowData);
 
-  const usl = mean * 1.5;
-  const lsl = mean * 0.5;
+  let target = 100.0;
+
+  if (mean > 130 && mean < 150) {
+    target = 130;
+  } else if (mean > 150 && mean < 180) {
+    target = 150;
+  } else if (mean > 180) {
+    target = 180;
+  }
+
+  const usl = target * 1.6;
+  const lsl = target * 0.6;
   const cpk = Math.min((usl - mean) / (3 * stdev), (mean - lsl) / (3 * stdev));
   console.log(min, max, mean, stdev, usl, lsl, cpk);
   return { min, max, mean, stdev, usl, lsl, cpk, rowData };
@@ -87,8 +102,9 @@ class App extends Component {
 
     const value = data.map((i) => parseFloat(i[options]) || 0.0);
     const compType = data.length ? data[0].CompType : "NA";
+    const firstComponent = data.length ? data[0]["Component ID"] : "AST-C10";
     const sampleCount = value.length;
-    const cpkdata = calculateData(value);
+    const cpkdata = calculateData(value, firstComponent);
     const tableData = { ...cpkdata, compType, sampleCount };
     const scaleX = d3
       .scaleLinear()

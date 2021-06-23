@@ -5,6 +5,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import SelectComponent from "./SelectComponent";
 import Result from "./Result";
 import CAD from "./cad.json";
+import BARCODE from "./Barcode.json";
 
 const COMPTYPES = Array.from(new Set(CAD.map((obj) => obj.CompType)));
 const MEASUREMENTS = ["Height(um)", "Area(%)", "Volume(%)"];
@@ -12,13 +13,11 @@ const MEASUREMENTS = ["Height(um)", "Area(%)", "Volume(%)"];
 const SearchParams = () => {
   const [location, setLocation] = useState("");
   const [compTypeProps] = useSelect("");
-  const [measurementPros] = useSelect("");
+  const [barcodePros] = useSelect("");
 
   const [pasteData, setPasteData] = useState([]);
 
   async function requestData() {
-    // if (!compTypeProps.value) return;
-
     if (location.length === 0) {
       const res = await fetch(
         // `http://pets-v2.dev-apis.com/pets?animal=${animalProps.value}&location=${location}&breed=${breedProps.value}`
@@ -36,6 +35,12 @@ const SearchParams = () => {
       console.log(json.data);
       setPasteData(json.data);
     }
+    // const res = await fetch(
+    //   // `http://pets-v2.dev-apis.com/pets?animal=${animalProps.value}&location=${location}&breed=${breedProps.value}`
+    //   `http://localhost:5050/api/DOE_Barcode/${barcodePros.value}`
+    // );
+    // const json = await res.json();
+    // setPasteData(json.data);
   }
 
   return (
@@ -62,11 +67,13 @@ const SearchParams = () => {
               onChange={(e) => setLocation(e.target.value)}
             />{" "}
           </label>
-          {/* <SelectComponent
-          labelName="Measurement"
-          props={measurementPros}
-          options={MEASUREMENTS}
-        /> */}
+          {
+            <SelectComponent
+              labelName="Barcode"
+              props={barcodePros}
+              options={BARCODE}
+            />
+          }
           {/* <SelectComponent
           labelName="Breed"
           props={breedProps}
